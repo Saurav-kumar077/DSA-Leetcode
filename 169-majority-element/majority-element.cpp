@@ -10,7 +10,7 @@ public:
         for(auto&pair:count){
             if(pair.second>n/2){
                 majorityelement = pair.first;
-                break;
+                
             }
         }
         return majorityelement;
