@@ -1,49 +1,53 @@
 class Solution {
-    int Firstocc(vector<int> & nums,int target){
-        int s=0;
-        int e=nums.size()-1;
-        int ans =-1;
-        while(s<=e){
-            int mid =s+(e-s)/2;
-            if(nums[mid]==target){
-                ans=mid;
-                e=mid-1;    
-            }
-            else if(target>nums[mid]){
-                s=mid+1;
+    private:
+    int findFirst(vector<int>& nums, int target){
+        int n=nums.size();
+        int st = 0;
+        int end=n-1;
+        int first_pos = -1;
 
-            }
-            else{
-                e=mid-1;
-            }
-        }
-        return ans;
-    }
-    int lastocc(vector<int> & nums, int target){
-        int s=0;
-        int e=nums.size()-1;
-        int ans=-1;
-        while(s<=e){
-            int mid=s+(e-s)/2;
+        while(st<=end){
+            int mid = st+(end-st)/2;
             if(nums[mid]==target){
-                ans=mid;
-                s=mid+1;
+                first_pos =mid;
+                end=mid-1;
             }
-            else if(target>nums[mid]){
-                s=mid+1;
+            else if (nums[mid]<target){
+                st=mid+1;
             }
             else{
-                e=mid-1;
+                end =mid-1;
             }
         }
-        return ans;
+        return first_pos;
+    }
+    int findLast(vector<int>& nums, int target){
+        int n=nums.size();
+        int st=0;
+        int end=n-1;
+        int last_pos = -1;
+        while (st<=end){
+            int mid = st+(end-st)/2;
+            if(nums[mid]==target){
+                last_pos=mid;
+                st=mid+1;
+            }
+            else if(nums[mid]<target){
+                st=mid+1;
+            }
+            else{
+                end=mid-1;
+            }
+        }
+        return last_pos;
     }
 public:
     vector<int> searchRange(vector<int>& nums, int target) {
-        int first =Firstocc(nums ,target);
-        int last =lastocc(nums,target);
-        return {first,last};
-        
-        
+        int first=findFirst(nums,target);
+        if(first==-1){
+            return {-1,-1};
+        }
+        int last = findLast(nums,target);
+        return {first , last};
     }
 };
