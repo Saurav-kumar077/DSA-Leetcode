@@ -2,6 +2,9 @@ class Solution {
 public:
     int lengthOfLongestSubstring(string s) {
         int n=s.length();
+        if(n==0){
+            return  0;
+        }
         int left = 0;
         int maxLength = 0;
         unordered_set<char>charSet;
