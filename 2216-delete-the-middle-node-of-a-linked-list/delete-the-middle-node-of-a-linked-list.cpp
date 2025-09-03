@@ -27,7 +27,6 @@ public:
         if(prev !=nullptr){
             prev->next = slow->next;
         }
-        delete slow;
         return head;
     }
 };
