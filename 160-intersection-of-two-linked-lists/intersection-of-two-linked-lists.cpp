@@ -20,6 +20,6 @@ public:
             ptrA = (ptrA==nullptr)? headB: ptrA->next;
             ptrB = (ptrB==nullptr)? headA:ptrB->next;
         }
-        return ptrA;
+        return ptrB;
     }
 };
