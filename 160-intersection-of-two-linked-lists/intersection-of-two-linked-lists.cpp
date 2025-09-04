@@ -33,6 +33,6 @@ public:
             headA = headA->next;
             headB = headB->next;
         }
-        return headA;
+        return headB;
     }
 };
