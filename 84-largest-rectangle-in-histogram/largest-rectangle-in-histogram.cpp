@@ -44,7 +44,7 @@ public:
         vector<int>next = nextSmallerElement(heights);
         vector<int>prev = prevSmallerElement(heights);
 
-        int max_area = INT_MIN;
+        int max_area = 0;
         for(int i=0;i<n;i++){
             int h = heights[i];
             int w = next[i]-prev[i]-1;
