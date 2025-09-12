@@ -6,24 +6,24 @@ public:
         int right = n-1;
         int leftMax = 0;
         int rightMax = 0;
-        int water  = 0;
+        int ans  = 0;
 
         while(left<right){
             if(height[left]<height[right]){
                 if(height[left]>=leftMax){
                     leftMax = height[left];
                 }
-                water += leftMax - height[left];
+                ans += leftMax - height[left];
                 left++;
             }
             else{
                 if(height[right]>=rightMax){
                     rightMax = height[right];
                 }
-                water += rightMax -height[right];
+                ans += rightMax -height[right];
                 right--;
             }
         }
-        return water;
+        return ans;
     }
 };
