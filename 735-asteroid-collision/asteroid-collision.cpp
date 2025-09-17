@@ -19,11 +19,11 @@ public:
                 st.push(a);
             }
         }
-        vector<int> result(st.size());
+        vector<int> ans(st.size());
             for(int i=st.size()-1;i>=0;i--){
-                result[i]=st.top();
+                ans[i]=st.top();
                 st.pop();
             }
-        return result;
+        return ans;
     }
 };
