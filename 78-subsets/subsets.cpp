@@ -1,27 +1,21 @@
-//My 1st code
 class Solution {
-    private:
-    void solve(vector<int>nums,vector<int>output,int index,vector<vector<int> >&ans){
-    if(index>=nums.size()){
-        ans.push_back(output);
-        return;
-    }
-    //exclude function call
-    solve(nums,output,index+1,ans);
-    //include function call
-    int element =nums[index];
-    output.push_back(element);
-    solve(nums ,output,index+1, ans);
-    }
-
 public:
+    void backTrack(vector<int>& nums , int index , vector<int>&curr,vector<vector<int>>&ans){
+        if(index ==nums.size()){
+            ans.push_back(curr);
+            return;
+        }
+        //notpick
+        backTrack(nums,index+1,curr,ans);
+        //pick current element
+        curr.push_back(nums[index]);
+        backTrack(nums,index+1,curr,ans);
+        curr.pop_back();
+    }
     vector<vector<int>> subsets(vector<int>& nums) {
-        vector<vector<int> > ans;
-        vector<int> output;
-        int index =0;
-        solve(nums,output,index,ans);
+        vector<vector<int>> ans;
+        vector<int>curr;
+        backTrack(nums,0,curr,ans);
         return ans;
-
-        
     }
 };
