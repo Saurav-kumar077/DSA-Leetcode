@@ -13,8 +13,8 @@ public:
                 low++;
             }
         }
-        return (min_len == INT_MAX) ? 0 : min_len;
-        
-        
+        if (min_len == INT_MAX)
+        return 0;
+        return min_len;
     }
 };
