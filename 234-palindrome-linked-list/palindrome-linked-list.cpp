@@ -10,49 +10,39 @@
  */
 class Solution {
     ListNode* findMiddle(ListNode* head){
-        ListNode*slow = head;
-        ListNode*fast = head;
-        while(fast !=NULL && fast->next !=NULL && fast->next->next !=NULL){
+        ListNode* slow=head;
+        ListNode* fast =head;
+        while(fast!=NULL && fast->next!=NULL){
             slow=slow->next;
             fast=fast->next->next;
         }
         return slow;
     }
-    ListNode* reverserList(ListNode* head){
-        ListNode* prev = nullptr;
-        ListNode* current =head;
-        ListNode* next_node = nullptr;
-
-        while(current !=NULL){
-            next_node=current->next;
-            current->next=prev;
-            
-            prev = current;
-            current = next_node;
+    ListNode* reverse(ListNode* head){
+        ListNode* curr = head;
+        ListNode* prev = NULL;
+        while(curr!=NULL){
+            ListNode* nextNode=curr->next;
+            curr->next=prev;
+            prev=curr;
+            curr=nextNode;
         }
         return prev;
     }
-
 public:
     bool isPalindrome(ListNode* head) {
-        if(head==nullptr || head->next==nullptr){
-            return true;
-        }
-
-        ListNode* firstHalfEnd = findMiddle(head);
-        ListNode* secondHalfStart = reverserList(firstHalfEnd->next);
-
-        ListNode* p1 =head;
-        ListNode* p2 = secondHalfStart;
-
-        bool result = true;
-        while(result && p2 !=nullptr){
-            if(p1->val != p2->val){
+        ListNode* middle =findMiddle(head);
+        ListNode* secondHalf = reverse(middle);
+        ListNode* p1 = head;
+        ListNode* p2 = secondHalf;
+        while(p2!=NULL){
+            if(p1->val !=p2->val){
                 return false;
             }
             p1=p1->next;
             p2=p2->next;
         }
         return true;
+     
     }
 };
