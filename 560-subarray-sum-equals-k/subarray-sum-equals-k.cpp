@@ -1,21 +1,28 @@
+#include <bits/stdc++.h>
+using namespace std;
+
 class Solution {
 public:
     int subarraySum(vector<int>& nums, int k) {
-        unordered_map<int,int>map;
-        map[0]=1; //0 already exists once
-        int prefixsum=0;
-        int countSubarrays = 0;
 
-        for(int x:nums){
-            prefixsum += x;
+        unordered_map<int,int> mp;
+        mp[0] = 1;
 
-            int need = prefixsum-k;
-            if(map.find(need)!=map.end()){
-                countSubarrays +=map[need];
+        int prefixSum = 0;     
+        int countSub = 0;
+
+        for(int i = 0; i < nums.size(); i++){
+            prefixSum = prefixSum + nums[i];   
+       
+            int need = prefixSum - k;
+
+            if(mp.find(need) != mp.end()){
+                countSub = countSub + mp[need];
             }
-            map[prefixsum]++;
-        }
-        return countSubarrays;
 
+            mp[prefixSum]++;
+        }
+
+        return countSub;
     }
 };
