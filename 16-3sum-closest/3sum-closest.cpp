@@ -6,7 +6,7 @@ public:
         int res = nums[0]+nums[1]+nums[2];
         int bestDiff = abs(res - target);
 
-        for(int i=0;i<n;i++){
+        for(int i=0;i<n-2;i++){
             int left= i+1;
             int right = n-1;
             while(left<right){
