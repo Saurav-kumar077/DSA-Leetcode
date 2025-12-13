@@ -1,44 +1,44 @@
 class Solution {
 public:
     string minWindow(string s, string t) {
-        if(t.size()>s.size()){
-            return "";
-        }
-        unordered_map<char ,int>need;
-        unordered_map<char,int>window;
-        
-        for(char c :t){
-            need[c]++;
-        }
-        int have =0;
-        int required = need.size();
+        int n = s.size();
+        if (t.size() > n) return "";
 
-        int left = 0;
-        int minLen = INT_MAX;
+        unordered_map<char,int> mp;
+        for (char ch : t) {
+            mp[ch]++;
+        }
+
+        int requiredCount = t.size();
+        int i = 0, j = 0;
+        int windowSize = INT_MAX;
         int start = 0;
 
-        for(int right = 0;right<s.size();right++){
-            char c = s[right];
-            window[c]++;
+        while (j < n) {
+            char ch = s[j];
 
-            if(need.count(c)&& window[c]==need[c]){
-                have++;
+            mp[ch]--;
+            if (mp[ch] >= 0) {
+                requiredCount--;
             }
-            while(have==required){
-                int currLen = right-left+1;
-                if(currLen<minLen){
-                    minLen=currLen;
-                    start=left;
+
+            while (requiredCount == 0) {
+                int currWindowSize = j - i + 1;
+                if (windowSize > currWindowSize) {
+                    windowSize = currWindowSize;
+                    start = i;
                 }
-                char removeChar = s[left];
-                window[removeChar]--;
-                
-                if(need.count(removeChar) && window[removeChar]<need[removeChar]){
-                    have--;
+
+                mp[s[i]]++;
+                if (mp[s[i]] > 0) {
+                    requiredCount++;
                 }
-                left++;
+                i++;
             }
+
+            j++;
         }
-        return (minLen == INT_MAX) ? "" : s.substr(start, minLen);
+
+        return windowSize == INT_MAX ? "" : s.substr(start, windowSize);
     }
 };
