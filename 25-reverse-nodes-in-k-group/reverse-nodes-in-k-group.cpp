@@ -1,35 +1,63 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
 class Solution {
+    void reverse(ListNode* head ,int times){
+        ListNode* curr = head;
+        ListNode* prev = NULL;
+        while(times--){
+            ListNode* next_node = curr->next;
+            curr->next = prev;
+            prev=curr;
+            curr = next_node;
+        }
+        return;
+    }
 public:
     ListNode* reverseKGroup(ListNode* head, int k) {
-        if(head==NULL||k==1){
-            return head;
+        if(head==NULL){
+            return NULL;
         }
-        ListNode* temp =head;
-        int count =0;
-        while(temp!=NULL && count < k){
-            temp=temp->next;
-            count ++;
-        }
-        if(count == k){
-            ListNode* next=NULL;
-            ListNode* curr = head;
-            ListNode* prev = NULL;
-            int c = 0;
-
-            while(curr!=NULL && c<k){
-                next=curr->next;
-                curr->next= prev;
-                prev=curr;
-                curr=next;
-                c++;
+        ListNode* left =head;
+        ListNode* right;
+        ListNode* prevLeft = NULL;
+        ListNode* res = NULL;
+        int size =k;
+        while(true){
+            right = left;
+            for(int i=0;i<size-1;i++){
+                if(right==NULL){
+                    break;
+                }
+                right =right->next;
             }
-            if(next!=NULL){
-                head->next=reverseKGroup(next,k);
+            if(right){
+                ListNode* nextLeft = right->next;
+                reverse(left,size);
+                if(prevLeft)
+                prevLeft->next = right;
+                prevLeft=left;
+                if(res==NULL)
+                res = right;
+                left = nextLeft;
+            }else{
+                if(prevLeft){
+                    prevLeft->next = left;
+                }
+                if(res==NULL){
+                        res=head;
+                    }
+                break;
             }
-            return prev;
-
         }
-        return head;
+        return res;
+
     }
-      
 };
