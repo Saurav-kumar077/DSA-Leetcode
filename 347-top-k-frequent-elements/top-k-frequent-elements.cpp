@@ -11,9 +11,10 @@ public:
             freq[nums[i]]++;
         }
         priority_queue<pair<int,int>,vector<pair<int,int>>,cmp>pq;
-        for(unordered_map<int,int>::iterator it = freq.begin(); it!=freq.end();it++){
-            pq.push({it->first,it->second});
+        for(auto it:freq){
+            pq.push({it.first,it.second});
         }
+        
         vector<int>ans;
         for(int i=0;i<k;i++){
             ans.push_back(pq.top().first);
