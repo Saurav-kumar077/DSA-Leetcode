@@ -1,24 +1,24 @@
 class Solution {
 public:
+    struct cmp{
+        bool operator()(const pair<int, int>& a, const pair<int, int>& b){
+            return a.second < b.second;//max heap 
+        }
+    };
     vector<int> topKFrequent(vector<int>& nums, int k) {
         unordered_map<int,int>freq;
         for(int i=0;i<nums.size();i++){
             freq[nums[i]]++;
         }
-        priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>>minHeap;
-        for(auto&entry:freq){
-            minHeap.push({entry.second,entry.first});
-            if(minHeap.size()>k){
-                minHeap.pop();
-            }
+        priority_queue<pair<int,int>,vector<pair<int,int>>,cmp>pq;
+        for(unordered_map<int,int>::iterator it = freq.begin(); it!=freq.end();it++){
+            pq.push({it->first,it->second});
         }
-
-            vector<int>result(k);
-            for(int i=0;i<k;i++){
-                result[i]=minHeap.top().second;
-                minHeap.pop();
-            }
-        
-        return result;  
+        vector<int>ans;
+        for(int i=0;i<k;i++){
+            ans.push_back(pq.top().first);
+            pq.pop();
+        }
+        return ans;
     }
 };
