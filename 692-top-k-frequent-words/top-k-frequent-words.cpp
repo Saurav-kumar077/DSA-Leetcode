@@ -18,7 +18,7 @@ public:
             pq.push({it.first , it.second});
         }
         vector<string>ans;
-        while(k--){
+        for(int i=0;i<k;i++){
             ans.push_back(pq.top().first);
             pq.pop();
         }
